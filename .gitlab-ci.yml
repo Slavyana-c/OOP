@@ -1,0 +1,17 @@
+image: ingensi/oracle-jdk
+
+cwk1:
+  only:
+    - /^cwk1/
+  script:
+    - cd cwk1/test
+    - bash basictests
+    - bash fulltests
+
+cwk2:
+  only:
+    - /^cwk2/
+  script:
+    - cd cwk2/test
+    - bash basictests
+    - bash fulltests
