@@ -1,6 +1,10 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 
 /**
@@ -11,14 +15,41 @@ import java.time.LocalDateTime;
  * @author YOUR NAME HERE
  */
 public class PollutionDataset {
-  // TODO: add field
+  private List<Measurement> data;
+// TODO: add field
 
   public PollutionDataset() {
-    // TODO: implement default constructor to initialise empty dataset
+    data = new ArrayList<>();
+    
+    String f = "D:\\Java\\comp1721\\cwk1\\data\\kirkstall.csv";
+    try{
+        readCSV(f);
+    }
+    catch (FileNotFoundException e){
+    }
   }
 
   public void readCSV(String filename) throws FileNotFoundException {
-    // TODO: load measurements from CSV file
+      try {
+          Scanner input = new Scanner(new File(filename));
+          input.nextLine();
+          while(input.hasNextLine()){
+              String data = input.nextLine();
+              String[] values = data.split(",");
+              try {
+                  System.out.println(values[0] +"  " + values[1] + " " + values[2]);
+              }
+              catch(Exception e){
+                  System.out.print("moo\n");
+              }
+          }
+          input.close();
+      }
+      catch(FileNotFoundException e) {
+          System.out.println("moo");
+      }
+          
+    
   }
 
   public void add(Measurement m) {

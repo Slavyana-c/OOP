@@ -11,21 +11,26 @@ import java.time.format.DateTimeFormatter;
 public class Measurement {
   // Use this when parsing measurement time
   private static DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+  private LocalDateTime time;
+  private int level;
 
   // TODO: define fields
 
   public Measurement(String record) {
-    // TODO: implement constructor
+    String[] values = record.split(",");
+    String dateAndTime = values[0] + " " + values[1];
+    time = LocalDateTime.parse(values[0], FORMAT);
   }
 
   public LocalDateTime getTime() {
-    return null;  // TODO: return field
+    return time; 
   }
 
   public int getLevel() {
-    return 0;  // TODO: return field
+    return level; 
   }
 
+  @Override
   public String toString() {
     return null;  // TODO: return string representation of measurement
   }
