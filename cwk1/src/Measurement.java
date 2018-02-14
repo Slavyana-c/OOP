@@ -16,10 +16,16 @@ public class Measurement {
 
   // TODO: define fields
 
-  public Measurement(String record) {
+  public Measurement(String record) throws DataException {
     String[] values = record.split(",");
     String dateAndTime = values[0] + " " + values[1];
-    time = LocalDateTime.parse(values[0], FORMAT);
+    time = LocalDateTime.parse(dateAndTime, FORMAT);
+    try{
+        level = Integer.parseInt(values[2]);
+    }
+    catch(Exception e){
+        level = -1;
+    }
   }
 
   public LocalDateTime getTime() {
@@ -32,6 +38,14 @@ public class Measurement {
 
   @Override
   public String toString() {
-    return null;  // TODO: return string representation of measurement
+      
+    if(getLevel() != -1){
+         return String.format("%s, %d%sg/m%s", getTime(), getLevel(), "\u00b5", "\u00b3");
+    }  
+    else {
+        return String.format("%s, no data", getTime());
+    }
+   
+    // TODO: return string representation of measurement
   }
 }
