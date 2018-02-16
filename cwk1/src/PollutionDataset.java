@@ -100,7 +100,33 @@ public class PollutionDataset {
   }
 
   public LocalDate dayRulesBreached(){
-    return null;
+
+    Measurement m = get(0);
+    LocalDate startDate = data.get(0).getTime().toLocalDate();
+    int startHour = m.getTime().getHour();
+    int hourlyLvl = 0;
+
+    for (int i = 0; i < data.size(); i++) {
+
+          m = get(i);
+          LocalDate currentDate = m.getTime().toLocalDate();
+          int currentHour = m.getTime().getHour();
+          if(currentHour != startHour) {
+            startHour = currentHour;
+            hourlyLvl = 0;
+          }
+          if(currentDate != startDate) {
+            startDate = currentDate;
+          }
+          if(m.getLevel() != -1){
+            hourlyLvl += m.getLevel();
+          }
+          if(hourlyLvl > 200){
+            return currentDate;
+          }
+
   }
 
+      return null;
+  }
 }
