@@ -65,4 +65,42 @@ public class PollutionDataset {
       }
     return maxM;  // TODO: return measurement with max NO2 level
   }
+
+  public Measurement minLevel()  throws DataException{
+    if(data.size() == 0) {
+      throw new DataException("help");
+    }
+    int min = Integer.MAX_VALUE;
+    Measurement minM = get(0);
+      for (int i = 0; i < data.size(); i++) {
+          Measurement m = get(i);
+          if(m.getLevel() < min && m.getLevel() != -1){
+            min = m.getLevel();
+            minM = m;
+          }
+      }
+    return minM;
+  }
+
+  public double meanLevel()  throws DataException{
+    if(data.size() == 0) {
+      throw new DataException("help");
+    }
+    double mean = 0;
+    int days = 0;
+    for (int i = 0; i < data.size(); i++) {
+          Measurement m = get(i);
+          if(m.getLevel() != -1){
+            mean += m.getLevel();
+            days++;
+          }
+      }
+
+    return mean / days;
+  }
+
+  public LocalDate dayRulesBreached(){
+    return null;
+  }
+
 }
