@@ -105,6 +105,7 @@ public class PollutionDataset {
     LocalDate startDate = data.get(0).getTime().toLocalDate();
     int startHour = m.getTime().getHour();
     int hourlyLvl = 0;
+    int timesBreached = 0;
 
     for (int i = 0; i < data.size(); i++) {
 
@@ -122,6 +123,9 @@ public class PollutionDataset {
             hourlyLvl += m.getLevel();
           }
           if(hourlyLvl > 200){
+            timesBreached++;
+          }
+          if (timesBreached > 18){
             return currentDate;
           }
 
