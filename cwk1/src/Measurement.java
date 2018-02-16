@@ -21,31 +21,40 @@ public class Measurement {
     String dateAndTime = values[0] + " " + values[1];
     time = LocalDateTime.parse(dateAndTime, FORMAT);
     try{
+      if(values.length != 2 && values.length != 3){
+        throw new DataException("help");
+      }
+      else if(values.length == 3){
         level = Integer.parseInt(values[2]);
-    }
-    catch(Exception e){
+      }
+      else{
         level = -1;
+      }
     }
+    catch(RuntimeException e){
+      throw new DataException("help");
+    }
+
   }
 
   public LocalDateTime getTime() {
-    return time; 
+    return time;
   }
 
   public int getLevel() {
-    return level; 
+    return level;
   }
 
   @Override
   public String toString() {
-      
+
     if(getLevel() != -1){
-         return String.format("%s, %d%sg/m%s", getTime(), getLevel(), "\u00b5", "\u00b3");
-    }  
+         return String.format("%s, %d %sg/m%s", getTime(), getLevel(), "\u00b5", "\u00b3");
+    }
     else {
         return String.format("%s, no data", getTime());
     }
-   
+
     // TODO: return string representation of measurement
   }
 }

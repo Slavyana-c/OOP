@@ -46,7 +46,10 @@ public class PollutionDataset {
       return data.get(index);  // TODO: return measurement at given index
   }
 
-  public Measurement maxLevel() {
+  public Measurement maxLevel()  throws DataException{
+    if(data.size() == 0) {
+      throw new DataException("help");
+    }
     int max = 0;
     Measurement maxM = get(0);
       for (int i = 0; i < data.size(); i++) {
