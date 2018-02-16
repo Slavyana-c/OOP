@@ -17,10 +17,11 @@ public class Measurement {
   // TODO: define fields
 
   public Measurement(String record) throws DataException {
-    String[] values = record.split(",");
-    String dateAndTime = values[0] + " " + values[1];
-    time = LocalDateTime.parse(dateAndTime, FORMAT);
+
     try{
+      String[] values = record.split(",");
+      String dateAndTime = values[0] + " " + values[1];
+      time = LocalDateTime.parse(dateAndTime, FORMAT);
       if(values.length != 2 && values.length != 3){
         throw new DataException("help");
       }

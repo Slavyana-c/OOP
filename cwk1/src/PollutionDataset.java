@@ -23,6 +23,7 @@ public class PollutionDataset {
   }
 
   public void readCSV(String filename) throws FileNotFoundException {
+    data.clear();
         Scanner input = new Scanner(new File(filename));
         input.nextLine(); // skip first line
         while(input.hasNextLine()){
@@ -43,6 +44,9 @@ public class PollutionDataset {
   }
 
   public Measurement get(int index) {
+      if(data.size() == 0 || data.size() < index + 1) {
+      throw new DataException("help");
+    }
       return data.get(index);  // TODO: return measurement at given index
   }
 
