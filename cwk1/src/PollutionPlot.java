@@ -9,11 +9,6 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
  
 public class PollutionPlot extends Application {
-    final static String austria = "Austria";
-    final static String brazil = "Brazil";
-    final static String france = "France";
-    final static String italy = "Italy";
-    final static String usa = "USA";
  
     @Override public void start(Stage stage) {
         stage.setTitle("Bar Chart");

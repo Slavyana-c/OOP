@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -12,67 +11,66 @@ import java.util.Scanner;
  *
  * <p>Created for COMP1721 Coursework 1.</p>
  *
- * @author YOUR NAME HERE
+ * @author Slavyana Dianova Chervenkondeva
  */
 public class PollutionDataset {
-  private List<Measurement> data;
-// TODO: add field
+   private ArrayList<Measurement> dataset;
 
   public PollutionDataset() {
-    data = new ArrayList<>();
+    dataset = new ArrayList();
   }
 
   public void readCSV(String filename) throws FileNotFoundException {
-    data.clear();
-        Scanner input = new Scanner(new File(filename));
-        input.nextLine(); // skip first line
-        while(input.hasNextLine()){
-            String record = input.nextLine();
-            Measurement m = new Measurement(record);
-            add(m);
-        }
-          input.close();
+    dataset.clear();
+    Scanner input = new Scanner(new File(filename));
+    input.nextLine(); // skip first line
+    while(input.hasNextLine()){
+      String record = input.nextLine();
+      Measurement m = new Measurement(record);
+      add(m);
+    }
+    input.close();
   }
 
   public void add(Measurement m) {
-      data.add(m);
-    // TODO: add a new measurement to the dataset
+    dataset.add(m);
   }
 
   public int size() {
-    return data.size();  // TODO: return number of measurements in dataset
+    return dataset.size();
   }
 
   public Measurement get(int index) {
-      if(data.size() == 0 || data.size() < index + 1) {
+    if(dataset.size() == 0 || dataset.size() < index + 1){
       throw new DataException("help");
     }
-      return data.get(index);  // TODO: return measurement at given index
+
+    else return dataset.get(index);
   }
 
-  public Measurement maxLevel()  throws DataException{
-    if(data.size() == 0) {
+  public Measurement maxLevel() {
+    if(dataset.size() == 0) {
       throw new DataException("help");
     }
     int max = 0;
     Measurement maxM = get(0);
-      for (int i = 0; i < data.size(); i++) {
+      for (int i = 0; i < dataset.size(); i++) {
           Measurement m = get(i);
           if(m.getLevel() > max){
             max = m.getLevel();
             maxM = m;
           }
       }
-    return maxM;  // TODO: return measurement with max NO2 level
+    return maxM;
   }
-
-  public Measurement minLevel()  throws DataException{
-    if(data.size() == 0) {
+  
+   public Measurement minLevel()  throws DataException{
+    if(dataset.size() == 0) {
       throw new DataException("help");
     }
     int min = Integer.MAX_VALUE;
     Measurement minM = get(0);
-      for (int i = 0; i < data.size(); i++) {
+      for (int i = 0; i < dataset.size(); i++) {
           Measurement m = get(i);
           if(m.getLevel() < min && m.getLevel() != -1){
             min = m.getLevel();
@@ -81,14 +79,14 @@ public class PollutionDataset {
       }
     return minM;
   }
-
-  public double meanLevel()  throws DataException{
-    if(data.size() == 0) {
+   
+    public double meanLevel()  throws DataException{
+    if(dataset.size() == 0) {
       throw new DataException("help");
     }
     double mean = 0;
     int days = 0;
-    for (int i = 0; i < data.size(); i++) {
+    for (int i = 0; i < dataset.size(); i++) {
           Measurement m = get(i);
           if(m.getLevel() != -1){
             mean += m.getLevel();
@@ -102,12 +100,12 @@ public class PollutionDataset {
   public LocalDate dayRulesBreached(){
 
     Measurement m = get(0);
-    LocalDate startDate = data.get(0).getTime().toLocalDate();
+    LocalDate startDate = dataset.get(0).getTime().toLocalDate();
     int startHour = m.getTime().getHour();
     int hourlyLvl = 0;
     int timesBreached = 0;
 
-    for (int i = 0; i < data.size(); i++) {
+    for (int i = 0; i < dataset.size(); i++) {
 
           m = get(i);
           LocalDate currentDate = m.getTime().toLocalDate();
@@ -128,9 +126,7 @@ public class PollutionDataset {
           if (timesBreached > 18){
             return currentDate;
           }
-
   }
-
       return null;
   }
 }
