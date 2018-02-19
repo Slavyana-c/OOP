@@ -48,7 +48,7 @@ public class PollutionDataset {
 
   // Returns the Measurement at a given index, if it exists
   public Measurement get(int index) {
-    if(dataset.size() == 0 || dataset.size() < index + 1){
+    if(dataset.isEmpty() || dataset.size() < index + 1){
       throw new DataException("Error!");
     }
 
@@ -77,7 +77,7 @@ public class PollutionDataset {
 
   // Returns the Measurement with the lowest level of NO2
   public Measurement minLevel()  throws DataException{
-    if(dataset.size() == 0) {
+    if(dataset.isEmpty()) {
       throw new DataException("Error!");
     }
 
@@ -97,7 +97,7 @@ public class PollutionDataset {
 
   // Returns the arithmetic mean of all levels of NO2 in the dataset
   public double meanLevel()  throws DataException{
-    if(dataset.size() == 0) {
+    if(dataset.isEmpty()) {
       throw new DataException("Error!");
     }
 
@@ -124,6 +124,7 @@ public class PollutionDataset {
     int hourlyLvl = 0;
     int timesBreached = 0;
 
+    // Calculates the hourly levels of NO2 and checks if rules were breached
     for (int i = 0; i < dataset.size(); i++) {
 
           m = get(i);

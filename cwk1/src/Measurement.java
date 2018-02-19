@@ -43,7 +43,7 @@ public class Measurement {
         return level;
     }
 
-    //Converts the Measurement to String
+    // Converts the Measurement to String
     @Override
     public String toString() {
         if(level == -1) return String.format("%s, no data", time);
