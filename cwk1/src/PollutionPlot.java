@@ -1,17 +1,18 @@
 import java.io.FileNotFoundException;
 import java.time.Month;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+import java.util.Scanner;
 
 public class PollutionPlot extends Application {
 
-    @Override public void start(Stage stage) {
+    //
+    @Override public void start(Stage stage) throws FileNotFoundException{
         stage.setTitle("Bar Chart");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -23,16 +24,22 @@ public class PollutionPlot extends Application {
 
 
         XYChart.Series<String,Number> series1 = new XYChart.Series<String, Number>();
-        String f = "/home/cserv1_a/soc_ug/sc17sdc/comp1721/cwk1/data/kirkstall.csv";
+
+        Scanner in;
+        if(args.length > 0) {
+          in = new Scanner(args[0]);
+        }
+        else {
+          System.out.print("Input file path: ");
+          in = new Scanner(System.in);
+        }
+          String fileName = in.nextLine();
+
         PollutionDataset p = new PollutionDataset();
 
         // Read data from CSV
-        try{
-            p.readCSV(f);
-         }
-         catch (FileNotFoundException e){
-            System.out.println("File not found.");
-         }
+
+           p.readCSV(fileName);
 
         Measurement y = p.get(0);
         int yy = y.getTime().getYear();
@@ -63,7 +70,7 @@ public class PollutionPlot extends Application {
         launch(args);
       }
       catch(Exception e){
-          System.out.println("There was an error reading data from the file.");
+          System.out.println("Please select a different file.");
       }
 
     }
