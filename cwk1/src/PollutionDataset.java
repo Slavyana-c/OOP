@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class PollutionDataset {
    private ArrayList<Measurement> dataset;
 
+  // PollutionDataset constructor
   public PollutionDataset() {
     dataset = new ArrayList<>();
   }
@@ -26,6 +27,7 @@ public class PollutionDataset {
     dataset.clear();
     Scanner input = new Scanner(new File(filename));
     input.nextLine(); // Skips first line
+
     while(input.hasNextLine()){
       String record = input.nextLine();
       Measurement m = new Measurement(record);
@@ -61,8 +63,10 @@ public class PollutionDataset {
 
     int maxLevel = 0;
     Measurement maxM = get(0);
+
       for (int i = 0; i < dataset.size(); i++) {
           Measurement m = get(i);
+
           if(m.getLevel() > maxLevel){
             maxLevel = m.getLevel();
             maxM = m;
@@ -71,14 +75,18 @@ public class PollutionDataset {
     return maxM;
   }
 
-   public Measurement minLevel()  throws DataException{
+  // Returns the Measurement with the lowest level of NO2
+  public Measurement minLevel()  throws DataException{
     if(dataset.size() == 0) {
       throw new DataException("Error!");
     }
+
     int min = Integer.MAX_VALUE;
     Measurement minM = get(0);
+
       for (int i = 0; i < dataset.size(); i++) {
           Measurement m = get(i);
+
           if(m.getLevel() < min && m.getLevel() != -1){
             min = m.getLevel();
             minM = m;
@@ -87,23 +95,27 @@ public class PollutionDataset {
     return minM;
   }
 
-    public double meanLevel()  throws DataException{
+  // Returns the arithmetic mean of all levels of NO2 in the dataset
+  public double meanLevel()  throws DataException{
     if(dataset.size() == 0) {
       throw new DataException("Error!");
     }
-    double mean = 0;
+
+    double total = 0;
     int days = 0;
     for (int i = 0; i < dataset.size(); i++) {
           Measurement m = get(i);
+
           if(m.getLevel() != -1){
-            mean += m.getLevel();
+            total += m.getLevel();
             days++;
           }
       }
 
-    return mean / days;
+    return total / days;
   }
 
+  // Returns the date when the EU rules were breached
   public LocalDate dayRulesBreached(){
 
     Measurement m = get(0);
@@ -117,23 +129,28 @@ public class PollutionDataset {
           m = get(i);
           LocalDate currentDate = m.getTime().toLocalDate();
           int currentHour = m.getTime().getHour();
+
           if(currentHour != startHour) {
             startHour = currentHour;
             hourlyLvl = 0;
           }
+
           if(currentDate != startDate) {
             startDate = currentDate;
           }
+
           if(m.getLevel() != -1){
             hourlyLvl += m.getLevel();
           }
+
           if(hourlyLvl > 200){
             timesBreached++;
           }
+
           if (timesBreached > 18){
             return currentDate;
           }
-  }
+    }
       return null;
-  }
+    }
 }

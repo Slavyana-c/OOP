@@ -6,17 +6,26 @@ import javafx.application.Application;
 class Pollution {
 
     public static void main(String[] args) throws FileNotFoundException {
+
         PollutionDataset set = new PollutionDataset();
         //String f = "D:\\Java\\comp1721\\cwk1\\data\\corn-exchange.csv";
         // /home/cserv1_a/soc_ug/sc17sdc/comp1721/cwk1/data/kirkstall.csv
-        Scanner in = new Scanner(System.in);
-        System.out.print("Input file path: ");
-        String fileName = in.nextLine();
+
+        Scanner in;
+        if(args.length > 0) {
+          in = new Scanner(args[0]);
+        }
+        else {
+          System.out.print("Input file path: ");
+          in = new Scanner(System.in);
+        }
+          String fileName = in.nextLine();
+
         try{
             set.readCSV(fileName);
-                    
+
             System.out.println(set.size() + " records processed");
-            System.out.println("Max: " + set.maxLevel()); 
+            System.out.println("Max: " + set.maxLevel());
             System.out.println("Min: " + set.minLevel());
             System.out.println("Mean: " + set.meanLevel());
             if(set.dayRulesBreached() == null){
