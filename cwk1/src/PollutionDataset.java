@@ -47,7 +47,7 @@ public class PollutionDataset {
   // Returns the Measurement at a given index, if it exists
   public Measurement get(int index) {
     if(dataset.size() == 0 || dataset.size() < index + 1){
-      throw new DataException("help");
+      throw new DataException("Error!");
     }
 
     else return dataset.get(index);
@@ -56,7 +56,7 @@ public class PollutionDataset {
   // Returns the Measurement with the largest level of NO2
   public Measurement maxLevel() {
     if(dataset.size() == 0) {
-      throw new DataException("help");
+      throw new DataException("Error!");
     }
 
     int maxLevel = 0;
@@ -73,7 +73,7 @@ public class PollutionDataset {
 
    public Measurement minLevel()  throws DataException{
     if(dataset.size() == 0) {
-      throw new DataException("help");
+      throw new DataException("Error!");
     }
     int min = Integer.MAX_VALUE;
     Measurement minM = get(0);
@@ -89,7 +89,7 @@ public class PollutionDataset {
 
     public double meanLevel()  throws DataException{
     if(dataset.size() == 0) {
-      throw new DataException("help");
+      throw new DataException("Error!");
     }
     double mean = 0;
     int days = 0;
