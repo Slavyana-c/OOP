@@ -13,17 +13,19 @@ import java.util.Scanner;
  *
  * @author Slavyana Dianova Chervenkondeva
  */
+
 public class PollutionDataset {
    private ArrayList<Measurement> dataset;
 
   public PollutionDataset() {
-    dataset = new ArrayList();
+    dataset = new ArrayList<>();
   }
 
+  // Reads the CSV file, if it exists
   public void readCSV(String filename) throws FileNotFoundException {
     dataset.clear();
     Scanner input = new Scanner(new File(filename));
-    input.nextLine(); // skip first line
+    input.nextLine(); // Skips first line
     while(input.hasNextLine()){
       String record = input.nextLine();
       Measurement m = new Measurement(record);
@@ -32,14 +34,17 @@ public class PollutionDataset {
     input.close();
   }
 
+  // Adds a Measurement to the dataset.
   public void add(Measurement m) {
     dataset.add(m);
   }
 
+  // Returns the size of the dataset.
   public int size() {
     return dataset.size();
   }
 
+  // Returns the Measurement at a given index, if it exists
   public Measurement get(int index) {
     if(dataset.size() == 0 || dataset.size() < index + 1){
       throw new DataException("help");
@@ -48,22 +53,24 @@ public class PollutionDataset {
     else return dataset.get(index);
   }
 
+  // Returns the Measurement with the largest level of NO2
   public Measurement maxLevel() {
     if(dataset.size() == 0) {
       throw new DataException("help");
     }
-    int max = 0;
+
+    int maxLevel = 0;
     Measurement maxM = get(0);
       for (int i = 0; i < dataset.size(); i++) {
           Measurement m = get(i);
-          if(m.getLevel() > max){
-            max = m.getLevel();
+          if(m.getLevel() > maxLevel){
+            maxLevel = m.getLevel();
             maxM = m;
           }
       }
     return maxM;
   }
-  
+
    public Measurement minLevel()  throws DataException{
     if(dataset.size() == 0) {
       throw new DataException("help");
@@ -79,7 +86,7 @@ public class PollutionDataset {
       }
     return minM;
   }
-   
+
     public double meanLevel()  throws DataException{
     if(dataset.size() == 0) {
       throw new DataException("help");
