@@ -17,7 +17,7 @@ public class PollutionDataset {
    private ArrayList<Measurement> dataset;
 
   public PollutionDataset() {
-    dataset = new ArrayList();
+    dataset = new ArrayList<>();
   }
 
   public void readCSV(String filename) throws FileNotFoundException {
@@ -42,7 +42,7 @@ public class PollutionDataset {
 
   public Measurement get(int index) {
     if(dataset.size() == 0 || dataset.size() < index + 1){
-      throw new DataException("help");
+      throw new DataException("Error!");
     }
 
     else return dataset.get(index);
@@ -50,7 +50,7 @@ public class PollutionDataset {
 
   public Measurement maxLevel() {
     if(dataset.size() == 0) {
-      throw new DataException("help");
+      throw new DataException("Error!");
     }
     int max = 0;
     Measurement maxM = get(0);
@@ -66,7 +66,7 @@ public class PollutionDataset {
   
    public Measurement minLevel()  throws DataException{
     if(dataset.size() == 0) {
-      throw new DataException("help");
+      throw new DataException("Error!");
     }
     int min = Integer.MAX_VALUE;
     Measurement minM = get(0);
@@ -82,7 +82,7 @@ public class PollutionDataset {
    
     public double meanLevel()  throws DataException{
     if(dataset.size() == 0) {
-      throw new DataException("help");
+      throw new DataException("Error!");
     }
     double mean = 0;
     int days = 0;

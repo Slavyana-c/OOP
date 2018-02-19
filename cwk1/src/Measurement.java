@@ -10,38 +10,38 @@ import java.time.format.DateTimeFormatter;
  */
 public class Measurement {
   // Use this when parsing measurement time
-  private static DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-  private LocalDateTime time;
-  private int level;
+    private static DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private LocalDateTime time;
+    private int level;
 
-  public Measurement(String record) throws DataException{
-      String[] data = record.split(",");
-      switch (data.length) {
-          case 3:
-              level = Integer.parseInt(data[2]);
-              break;
-          case 2:
-              level = -1;
-              break;
-          default:
+    public Measurement(String record) throws DataException{
+        String[] data = record.split(",");
+        switch (data.length) {
+            case 3:
+                level = Integer.parseInt(data[2]);
+                break;
+            case 2:
+                level = -1;
+                break;
+            default:
               throw new DataException("Invalid number of elements in record!");
-      }
+    }
 
-      String dateAndTime = data[0] + " " + data[1];
-      time = LocalDateTime.parse(dateAndTime, FORMAT);
-  }
+    String dateAndTime = data[0] + " " + data[1];
+    time = LocalDateTime.parse(dateAndTime, FORMAT);
+    }
 
-  public LocalDateTime getTime() {
-    return time;
-  }
+    public LocalDateTime getTime() {
+        return time;
+    }
 
-  public int getLevel() {
-    return level;
-  }
+    public int getLevel() {
+        return level;
+    }
 
-  @Override
-  public String toString() {
-    if(level == -1) return String.format("%s, no data", time);
-    else return String.format("%s, %d \u00b5g/m\u00b3", time, level);
-  }
+    @Override
+    public String toString() {
+        if(level == -1) return String.format("%s, no data", time);
+        else return String.format("%s, %d \u00b5g/m\u00b3", time, level);
+    }
 }
