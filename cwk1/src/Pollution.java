@@ -1,7 +1,6 @@
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import javafx.application.Application;
 
 class Pollution {
 
@@ -27,7 +26,7 @@ class Pollution {
             System.out.println(set.size() + " records processed");
             System.out.println("Max: " + set.maxLevel());
             System.out.println("Min: " + set.minLevel());
-            System.out.println("Mean: " + set.meanLevel());
+            System.out.printf("Mean: %.3f%n", set.meanLevel());
             if(set.dayRulesBreached() == null){
                  System.out.println("No rules were breached.");
             }
