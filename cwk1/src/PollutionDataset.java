@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 /**
  * A sequence of air pollution measurements.
  *
@@ -49,7 +48,7 @@ public class PollutionDataset {
   // Returns the Measurement at a given index, if it exists
   public Measurement get(int index) {
     if(dataset.isEmpty() || dataset.size() < index + 1){
-      throw new DataException("Error!");
+      throw new DataException("No such index!");
     }
 
     else return dataset.get(index);
@@ -57,8 +56,8 @@ public class PollutionDataset {
 
   // Returns the Measurement with the largest level of NO2
   public Measurement maxLevel() {
-    if(dataset.size() == 0) {
-      throw new DataException("Error!");
+    if(dataset.isEmpty()) {
+      throw new DataException("The dataset is empty!");
     }
 
     int maxLevel = 0;
@@ -78,7 +77,7 @@ public class PollutionDataset {
   // Returns the Measurement with the lowest level of NO2
   public Measurement minLevel()  throws DataException{
     if(dataset.isEmpty()) {
-      throw new DataException("Error!");
+      throw new DataException("The dataset is empty!");
     }
 
     int min = Integer.MAX_VALUE;
@@ -101,25 +100,28 @@ public class PollutionDataset {
       throw new DataException("Error!");
     }
 
-    double total = 0;
-    int days = 0;
+    double totalLevel = 0;
+    int count = 0;
+    double avg;
     for (int i = 0; i < dataset.size(); i++) {
           Measurement m = get(i);
 
           if(m.getLevel() != -1){
-            total += m.getLevel();
-            days++;
+            totalLevel += m.getLevel();
+            count++;
           }
       }
-
-    return total / days;
+    // Prevents division by 0
+    if(count == 0) avg = 0;
+    else avg = totalLevel / count;
+    
+    return avg;
   }
 
   // Returns the date when the EU rules were breached
   public LocalDate dayRulesBreached(){
 
     Measurement m = get(0);
-    LocalDate startDate = dataset.get(0).getTime().toLocalDate();
     int startHour = m.getTime().getHour();
     int hourlyLvl = 0;
     int timesBreached = 0;
@@ -128,18 +130,13 @@ public class PollutionDataset {
     for (int i = 0; i < dataset.size(); i++) {
 
           m = get(i);
-          LocalDate currentDate = m.getTime().toLocalDate();
           int currentHour = m.getTime().getHour();
 
           if(currentHour != startHour) {
             startHour = currentHour;
             hourlyLvl = 0;
           }
-
-          if(currentDate != startDate) {
-            startDate = currentDate;
-          }
-
+          
           if(m.getLevel() != -1){
             hourlyLvl += m.getLevel();
           }
@@ -149,9 +146,10 @@ public class PollutionDataset {
           }
 
           if (timesBreached > 18){
+            LocalDate currentDate = m.getTime().toLocalDate();
             return currentDate;
           }
     }
       return null;
-    }
+   }
 }
