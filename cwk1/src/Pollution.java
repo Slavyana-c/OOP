@@ -2,7 +2,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 /**
- * Main method to test the 
+ * Program that uses the Measurement and PollutionDataset classes.
  *
  * <p>Created for COMP1721 Coursework 1.</p>
  *
@@ -41,9 +41,11 @@ class Pollution {
             else System.out.printf("The EU rules were breached on %s.%n",
                     set.dayRulesBreached());
         }
+        
         catch(FileNotFoundException e){
             System.out.println("File not found.");
         }
+        
         catch(Exception e){
             System.out.println("There was an error reading data from the file.");
             System.out.println("Please choose a different file.");

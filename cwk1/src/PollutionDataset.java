@@ -11,6 +11,7 @@ import java.util.Scanner;
  * <p>Created for COMP1721 Coursework 1.</p>
  *
  * @author Slavyana Dianova Chervenkondeva
+ * used 
  */
 
 public class PollutionDataset {
@@ -127,27 +128,33 @@ public class PollutionDataset {
     int timesBreached = 0;
 
     // Calculates the hourly levels of NO2 and checks if rules were breached
+    // Starting from 00:15 to 01:00 inclusive
     for (int i = 0; i < dataset.size(); i++) {
 
           m = get(i);
           int currentHour = m.getTime().getHour();
 
           if(currentHour != startHour) {
+              
+            if(m.getLevel() != -1) {
+               hourlyLvl += m.getLevel();
+            }
+            
+            if(hourlyLvl > 200) {
+            timesBreached++;
+            }
+            
+            if (timesBreached > 18){
+            LocalDate currentDate = m.getTime().toLocalDate();
+            return currentDate;
+            }
+            
             startHour = currentHour;
             hourlyLvl = 0;
           }
           
-          if(m.getLevel() != -1){
+          else if(m.getLevel() != -1) {
             hourlyLvl += m.getLevel();
-          }
-
-          if(hourlyLvl > 200){
-            timesBreached++;
-          }
-
-          if (timesBreached > 18){
-            LocalDate currentDate = m.getTime().toLocalDate();
-            return currentDate;
           }
     }
       return null;
