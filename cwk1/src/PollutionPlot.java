@@ -49,7 +49,8 @@ public class PollutionPlot extends Application {
         String fileName = in.nextLine();
         PollutionDataset set = new PollutionDataset();
         set.readCSV(fileName);
-        XYChart.Series<String,Number> series = getSeries(set, fileName);
+        XYChart.Series<String,Number> series = new XYChart.Series<String, Number>();
+        series = getSeries(set, fileName);
 
         // Shows the chart
         Scene scene  = new Scene(chart,800,600);
