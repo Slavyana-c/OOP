@@ -42,15 +42,27 @@ class Pollution {
             else System.out.printf("The EU rules were breached on %s.%n",
                     set.dayRulesBreached());
             
-            System.out.println("Would you like to see a bar chart of the data? (y/n) ");
             
-            char choice = (char) System.in.read();
-            choice = Character.toLowerCase(choice);
-
-            if(choice == 'y')Application.launch(PollutionPlot.class, fileName);
-            
-            
-            
+            // Print a bar chart with the average monthly levels
+            System.out.print("Would you like to see a bar chart of the data? (y/n): ");
+            String choice = "";
+           
+            while (!(choice.equals("y") || choice.equals("n"))) {
+                choice = in.nextLine();
+                choice = choice.toLowerCase();
+                
+                switch (choice) {
+                    case "y":
+                        Application.launch(PollutionPlot.class, fileName);
+                        break;
+                    case "n":
+                        System.out.println("Ending program.");
+                        break;
+                    default:
+                        System.out.print("Invalid command! Please select (y/n): ");
+                        break;
+                }
+            }
         }
         
         catch(FileNotFoundException e){
