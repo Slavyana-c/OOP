@@ -13,6 +13,11 @@ import javafx.stage.Stage;
 /**
  * Bar Chart.
  *
+ * Reference :
+ * 2008, 2014, Oracle and/or its affiliates.
+ * last accessed 01.03.2018
+ * https://docs.oracle.com/javafx/2/charts/bar-chart.htm
+ *
  * <p>Created for COMP1721 Coursework 1.</p>
  *
  * @author Slavyana Dianova Chervenkondeva
@@ -36,7 +41,7 @@ public class PollutionPlot extends Application {
         xAxis.setLabel("Month");
         yAxis.setLabel("NO\u2082 (\u00b5g/m\u00b3)");
 
-        // Reads CSV, if file is found        
+        // Reads CSV, if file is found
         Scanner in;
         if(mainArgs.size() > 0) {
           in = new Scanner(mainArgs.get(0));
@@ -45,7 +50,7 @@ public class PollutionPlot extends Application {
           System.out.print("Input file path: ");
           in = new Scanner(System.in);
         }
-        
+
         String fileName = in.nextLine();
         PollutionDataset set = new PollutionDataset();
         set.readCSV(fileName);
@@ -58,11 +63,11 @@ public class PollutionPlot extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     // Gets the series of data for the bar chart
     private XYChart.Series<String, Number> getSeries(PollutionDataset set, String fileName) {
-        XYChart.Series<String,Number> series = new XYChart.Series<String, Number>(); 
-        
+        XYChart.Series<String,Number> series = new XYChart.Series<String, Number>();
+
         // Sets the name of the series
         Measurement m = set.get(0);
         int year = m.getTime().getYear();
@@ -88,7 +93,7 @@ public class PollutionPlot extends Application {
                  totalLevel = 0;
                  numOfElements = 0;
              }
-             
+
              // Ignores measurements with no data for the levels
              if(m.getLevel() > -1) {
                totalLevel += m.getLevel();
