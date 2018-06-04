@@ -22,8 +22,8 @@ public class AccountTest {
         BankAccount b3 = new BankAccount(3000, "Walter White", 10000);
 
         System.out.println("Creating savings accounts...\n");
-        SavingsAccount s1 = new SavingsAccount(4040, "Sheldon Cooper", 4500, 1.5);
-        SavingsAccount s2 = new SavingsAccount(5555, "Barney Stinson", 7000, 2.3);
+        SavingsAccount s1 = new SavingsAccount(4040, "Sheldon Cooper", 1.5, 4500);
+        SavingsAccount s2 = new SavingsAccount(5555, "Barney Stinson", 2.3, 7000);
         SavingsAccount s3 = new SavingsAccount(6600, "Chandler Bing", 0.75);
 
         System.out.println("Creating student accounts...\n");
@@ -82,8 +82,9 @@ public class AccountTest {
         // Creation
         System.out.println("Creating a savings account with over 10000...\n");
         try {
-            accounts.add(new SavingsAccount(0, "Bad Luck", 10001, 2));
+            accounts.add(new SavingsAccount(0, "Bad Luck", 2, 10001));
         } catch (Exception e) {
+            System.out.println("Failed as expected.");
             System.out.println("Account can't be created. Balance over 10000.");
         }
 
@@ -91,6 +92,7 @@ public class AccountTest {
         try {
             accounts.add(new StudentAccount(0, "Bad Luck", -3));
         } catch (Exception e) {
+            System.out.println("Failed as expected.");
             System.out.println("Account can't be created. Balance under 0.");
         }
 
@@ -99,6 +101,7 @@ public class AccountTest {
         try {
             s3.withdraw(30000);
         } catch (Exception e) {
+            System.out.println("Failed as expected.");
             System.out.println("Not enough money in account.");
         }
 
@@ -106,6 +109,7 @@ public class AccountTest {
         try {
             p2.withdraw(-1);
         } catch (Exception e) {
+            System.out.println("Failed as expected.");
             System.out.println("Amount must be over 0.");
         }
 
@@ -114,6 +118,7 @@ public class AccountTest {
             p2 = new StudentAccount(8800, "Hannah Baker");
             p2.withdraw(251);
         } catch (Exception e) {
+            System.out.println("Failed as expected.");
             System.out.println("You have exceeded your overdraft.");
         }
 
@@ -122,6 +127,7 @@ public class AccountTest {
         try {
             s2.deposit(0);
         } catch (Exception e) {
+            System.out.println("Failed as expected.");
             System.out.println("Amount must be over 0.");
         }
         
@@ -130,6 +136,7 @@ public class AccountTest {
             s2 = new SavingsAccount(5555, "Barney Stinson", 2.3);
             s2.deposit(10001);
         } catch (Exception e) {
+            System.out.println("Failed as expected.");
             System.out.println("Balance is over 10000.");
         }
         

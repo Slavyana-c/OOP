@@ -13,19 +13,19 @@ public class SavingsAccount extends BankAccount {
 
     // Savings account constructors
     public SavingsAccount(int id, String name, double interestRate) {
-        this(id, name, 0, interestRate);
+        this(id, name, interestRate, 0);
     }
 
-    public SavingsAccount(int id, String name, int bal, double interestRate) {
+    public SavingsAccount(int id, String name, double interestRate, int bal) {
         super(id, name);
-        this.interestRate = interestRate;
+        setInterestRate(interestRate);
         if (bal != 0) {
             deposit(bal);
         }
     }
 
     // Sets the interest rate
-    public void setInterestRate(int interestRate) {
+    public void setInterestRate(double interestRate) {
 
         if (interestRate > 0) {
             this.interestRate = interestRate;
