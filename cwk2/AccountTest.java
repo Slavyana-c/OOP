@@ -88,7 +88,7 @@ public class AccountTest {
             System.out.println("Account can't be created. Balance over 10000.");
         }
 
-        System.out.println("Creating an account with over balance less than 0...\n");
+        System.out.println("Creating an account with balance less than 0...\n");
         try {
             accounts.add(new StudentAccount(0, "Bad Luck", -3));
         } catch (Exception e) {
