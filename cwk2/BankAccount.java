@@ -27,21 +27,6 @@ public class BankAccount {
         }
     }
 
-    // Sets the account id
-    public void setId(int i) {
-        id = i;
-    }
-
-    // Sets the account holder's name
-    public void setName(String n) {
-        name = n;
-    }
-
-    // Sets the account balance
-    public void setBalance(int bal) {
-        balance = bal;
-    }
-
     // Returns the account id
     public int getId() {
         return id;

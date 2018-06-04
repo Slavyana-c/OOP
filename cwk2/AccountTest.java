@@ -74,7 +74,7 @@ public class AccountTest {
 
         // Testing overdraft
         System.out.println("Checking overdraft...\n");
-        p2.setBalance(0);
+        p2 = new StudentAccount(8800, "Hannah Baker");
         p2.withdraw(250);
         System.out.println(p2);
 
@@ -111,7 +111,7 @@ public class AccountTest {
 
         System.out.println("Having overdraft over 250...\n");
         try {
-            p2.setBalance(0);
+            p2 = new StudentAccount(8800, "Hannah Baker");
             p2.withdraw(251);
         } catch (Exception e) {
             System.out.println("You have exceeded your overdraft.");
@@ -127,7 +127,7 @@ public class AccountTest {
         
         System.out.println("Depositing to a savings account...");
         try {
-            s2.setBalance(0);
+            s2 = new SavingsAccount(5555, "Barney Stinson", 2.3);
             s2.deposit(10001);
         } catch (Exception e) {
             System.out.println("Balance is over 10000.");
