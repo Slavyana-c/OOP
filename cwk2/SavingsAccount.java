@@ -26,7 +26,13 @@ public class SavingsAccount extends BankAccount {
 
     // Sets the interest rate
     public void setInterestRate(int interestRate) {
-        this.interestRate = interestRate;
+
+        if (interestRate > 0) {
+            this.interestRate = interestRate;
+        } else {
+            throw new IllegalArgumentException("Invalid interest rate");
+        }
+
     }
 
     // Gets the interest rate
